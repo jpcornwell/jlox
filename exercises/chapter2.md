@@ -32,6 +32,7 @@ lets them execute Lisp code on the fly as well. Why?
 Reading a little bit into Lisps in the past, it sounds like the line between
 compiling and interpreting is fuzzy, and that this allows for a very powerful
 language feature called macros. Macros in Lisp are not like macros in other
-languages which typically just entails string preprocessors. In Lisp, macros
-will actually manipulate code on the fly. I'll leave it at that for this
-answer, but in the future I plan to learn a lot more about Lisp languages.
+languages which typically just entails string preprocessing. In Lisp, macros
+will actually take in parsed code and output new code. I'll leave it at that
+for this answer, but in the future I plan to learn a lot more about Lisp
+languages.
