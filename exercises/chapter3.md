@@ -13,6 +13,10 @@ one parameter. I tried calling it without any arguments and I got an error. I
 was expecting it to be more like javascript and simply fill in the parameter
 with nil.
 
+Tried getting a variable of type number to overflow. Since the jlox
+implementation is just using a java type of double behind the scenes, it ended
+up setting the value to 'Infinity'.
+
 Challenge 2
 -----------
 This informal introduction leaves a lot unspecified. List several open
