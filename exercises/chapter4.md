@@ -37,3 +37,9 @@ Challenge 4
 Add support to Lox’s scanner for C-style /* ... */ block comments. Make sure to
 handle newlines in them. Consider allowing them to nest. Is adding support for
 nesting more work than you expected? Why?
+
+Okay, I added support for multiline comments and even allowed for them to be
+nested. Overall it really wasn't too difficult. My function that consumes
+multiline comments just calls itself if it gets to the beginning of another
+multiline comment. This makes it easy to tell if the comment end markers are
+not balanced.
