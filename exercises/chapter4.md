@@ -4,6 +4,10 @@ Challenge 1
 The lexical grammars of Python and Haskell are not regular. What does that
 mean, and why aren’t they?
 
+I'm skipping this question. To really understand it I'm going to have to delve
+into my old textbooks. I plan on reading up and doing more compiler type
+projects, so I feel comfortable kicking this one down the road.
+
 Challenge 2
 -----------
 Aside from separating tokens — distinguishing print foo from printfoo  — spaces
