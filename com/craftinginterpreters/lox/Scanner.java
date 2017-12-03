@@ -150,9 +150,17 @@ class Scanner {
     }
 
     private void multiLineComment() {
-        while (peek() != '*' && peekNext() != '/' && !isAtEnd()) {
+        // Check if we are at '*/' or EOF
+        while (!(peek() == '*' && peekNext() == '/') && !isAtEnd()) {
             if (peek() == '\n') line++;
-            advance();
+            // If we come across an inner multiline comment then handle it too.
+            if (peek() == '/' && peekNext() == '*') {
+                advance();
+                advance();
+                multiLineComment();
+            } else {
+                advance();
+            }
         }
 
         // Unterminated comment
