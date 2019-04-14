@@ -1,3 +1,3 @@
 #!/bin/sh
 
-javac com/craftinginterpreters/lox/*.java
+javac -g com/craftinginterpreters/lox/*.java
