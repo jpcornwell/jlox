@@ -13,6 +13,14 @@ class RpnPrinter implements Expr.Visitor<String> {
     }
 
     @Override
+    public String visitTernaryExpr(Expr.Ternary expr) {
+        return expr.left.accept(this) + " " +
+               expr.middle.accept(this) + " " +
+               expr.right.accept(this) + " " +
+               "ternary_" + expr.leftOperator.lexeme + expr.rightOperator.lexeme;
+    }
+
+    @Override
     public String visitGroupingExpr(Expr.Grouping expr) {
         return expr.expression.accept(this);
     }
