@@ -34,7 +34,13 @@ left-associative or right-associative?
 Answer
 ------
 
+Implemented.
 
+I don't totally understand the precedence level question. I have written the
+parser so that it evaluates the "ternary conditional rule" again.
+
+I made the operator right associative so that the user can easily chain these
+together and make a sort of switch construct.
 
 Challenge 3
 -----------
@@ -47,4 +53,10 @@ a right-hand operand with the appropriate precedence.
 Answer
 ------
 
+Implemented. 
 
+But I cheated and looked at the answers. I wasn't sure how to handle an error
+without immediately bailing out of the parsing. I forgot that the error
+function only returns an exception and it's up to the caller to decide if that
+gets thrown or not, which in turn lets you decide whether to keep parsing or to
+enter panic mode.
