@@ -13,6 +13,13 @@ class RpnPrinter implements Expr.Visitor<String> {
     }
 
     @Override
+    public String visitAssignExpr(Expr.Assign expr) {
+        return expr.name.lexeme + " " +
+               expr.value.accept(this) + " " +
+               "=";
+    }
+
+    @Override
     public String visitTernaryExpr(Expr.Ternary expr) {
         return expr.left.accept(this) + " " +
                expr.middle.accept(this) + " " +
@@ -38,6 +45,11 @@ class RpnPrinter implements Expr.Visitor<String> {
         } else {
             return expr.right.accept(this) + " " + expr.operator.lexeme;
         }
+    }
+
+    @Override
+    public String visitVariableExpr(Expr.Variable expr) {
+        return expr.name.lexeme;
     }
 
     public static void main(String[] args) {
