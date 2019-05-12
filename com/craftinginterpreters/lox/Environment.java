@@ -7,6 +7,8 @@ class Environment {
     final Environment enclosing;
     private final Map<String, Object> values = new HashMap<>();
 
+    private static class Uninitialized { }
+
     Environment() {
         enclosing = null;
     }
@@ -17,7 +19,13 @@ class Environment {
 
     Object get(Token name) {
         if (values.containsKey(name.lexeme)) {
-            return values.get(name.lexeme);
+            Object value = values.get(name.lexeme);
+            if (value instanceof Uninitialized) {
+                throw new RuntimeError(name, 
+                    "Uninitialized variable '" + name.lexeme + "'.");
+            }
+
+            return value;
         }
 
         if (enclosing != null) return enclosing.get(name);
@@ -43,5 +51,9 @@ class Environment {
 
     void define(String name, Object value) {
         values.put(name, value);
+    }
+
+    void define(String name) {
+        values.put(name, new Uninitialized());
     }
 }
