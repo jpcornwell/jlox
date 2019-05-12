@@ -7,13 +7,22 @@ import static com.craftinginterpreters.lox.TokenType.*;
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     private Environment environment = new Environment();
 
-    void interpret(List<Stmt> statements) {
+    void interpretProgram(List<Stmt> statements) {
         try {
             for (Stmt statement : statements) {
                 execute(statement);
             }
         } catch (RuntimeError error) {
             Lox.runtimeError(error);
+        }
+    }
+
+    String interpretExpr(Expr expr) {
+        try {
+            return stringify(evaluate(expr));
+        } catch (RuntimeError error) {
+            Lox.runtimeError(error);
+            return null;
         }
     }
 

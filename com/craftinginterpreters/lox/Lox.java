@@ -38,21 +38,33 @@ public class Lox {
 
         for (;;) {
             System.out.print("> ");
-            run(reader.readLine());
+            String result = run(reader.readLine());
+
+            if (result != null) {
+                System.out.println(result);
+            }
+
             hadError = false;
         }
     }
 
-    private static void run(String source) {
+    private static String run(String source) {
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
         Parser parser = new Parser(tokens);
-        List<Stmt> statements = parser.parse();
 
-        // Stop if there was a syntax error.
-        if (hadError) return;
-
-        interpreter.interpret(statements);
+        if (tokens.stream().anyMatch(t -> t.type == TokenType.SEMICOLON)) {
+            // Assume input is a normal program
+            List<Stmt> statements = parser.parseProgram();
+            if (hadError) return null;
+            interpreter.interpretProgram(statements);
+            return null;
+        } else {
+            // Assume input is an expression (used for the REPL)
+            Expr expr = parser.parseExpr();
+            if (hadError) return null;
+            return interpreter.interpretExpr(expr);
+        }
     }
 
     static void error(int line, String message) {
