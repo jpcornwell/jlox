@@ -7,6 +7,8 @@ import static com.craftinginterpreters.lox.TokenType.*;
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     private Environment environment = new Environment();
 
+    private class BreakException extends RuntimeException { }
+
     void interpretProgram(List<Stmt> statements) {
         try {
             for (Stmt statement : statements) {
@@ -90,10 +92,19 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitWhileStmt(Stmt.While stmt) {
-        while (isTruthy(evaluate(stmt.condition))) {
-            execute(stmt.body);
+        try {
+            while (isTruthy(evaluate(stmt.condition))) {
+                execute(stmt.body);
+            }
+        } catch (BreakException e) {
+            // Break out of the loop and continue execution
         }
         return null;
+    }
+
+    @Override
+    public Void visitBreakStmt(Stmt.Break stmt) {
+        throw new BreakException();
     }
 
     @Override
